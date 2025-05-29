@@ -1,6 +1,8 @@
 "use client";
 import { useApplicationContext } from "../context/applicationContext";
 import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
+import Button from "@/app/reusableComponetns/button";
 export default function AddTask() {
   const {
     task,
@@ -18,40 +20,64 @@ export default function AddTask() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
     setTask((prev) => {
       return { ...prev, [name]: value };
     });
   };
 
   const handleOnAddTask = () => {
-    const updatedUsers = credentials.map((user) => {
-      if (user.userId === currentUserId) {
-        return {
-          ...user,
-          tasks: [{ ...task, taskId: uuidv4().slice(0, 4) }, ...user.tasks],
-        };
-      }
-      return user;
-    });
-    setCredentials(updatedUsers);
-    setTask(taksList);
+    if (!task.title || !task.description) {
+      toast.error("Title and Description is required");
+    }
+
+    if (task.title.length >= 20 && task.description.length >= 20) {
+      const updatedUsers = credentials.map((user) => {
+        if (user.userId === currentUserId) {
+          return {
+            ...user,
+            tasks: [{ ...task, taskId: uuidv4().slice(0, 4) }, ...user.tasks],
+          };
+        }
+        return user;
+      });
+      setCredentials(updatedUsers);
+      setTask(taksList);
+      toast.success("Added Notes SuccessFully !");
+    } else {
+      toast.error("More Than 20 Letters Required");
+    }
   };
 
   const handleOnUpdateTask = () => {
-    const updatedNote = credentials.map((user) => {
-      if (user.userId === currentUserId) {
-        return {
-          ...user,
-          tasks: user.tasks.map((el) => {
-            return el.taskId === editId ? task : el;
-          }),
-        };
-      }
-      return user;
-    });
-    setCredentials(updatedNote);
-    setTask(taksList);
+    if (!task.title || !task.description) {
+      toast.error("Title and Description is required");
+    }
+
+    if (task.title.length >= 20 && task.description.length >= 20) {
+      const updatedNote = credentials.map((user) => {
+        if (user.userId === currentUserId) {
+          return {
+            ...user,
+            tasks: user.tasks.map((el) => {
+              return el.taskId === editId ? task : el;
+            }),
+          };
+        }
+        return user;
+      });
+      setCredentials(updatedNote);
+      setTask(taksList);
+      setIsEdit(false);
+      toast.success("Update Notes SuccessFully !");
+    } else {
+      toast.error("More Than 20 Letters Required");
+    }
+  };
+
+  const handleOnClose = () => {
     setIsEdit(false);
+    setTask(taksList);
   };
   return (
     <div className="add_task_container">
@@ -76,10 +102,37 @@ export default function AddTask() {
         </div>
 
         {isEdit ? (
-          <button onClick={() => handleOnUpdateTask()}>Update</button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <Button
+                text="Update"
+                onClick={() => handleOnUpdateTask()}
+                bgColor="#8BC34A"
+              />
+            </div>
+            <div>
+              {" "}
+              <Button
+                text="Cancel"
+                onClick={() => handleOnClose()}
+                bgColor="#000000"
+              />{" "}
+            </div>
+          </div>
         ) : (
-          <button onClick={() => handleOnAddTask()}>Add</button>
+          <Button
+            text="Add"
+            onClick={() => handleOnAddTask()}
+            bgColor="#1976D2"
+          />
         )}
+        <ToastContainer />
       </div>
     </div>
   );

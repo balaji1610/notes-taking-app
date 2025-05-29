@@ -1,5 +1,4 @@
 "use client";
-
 import { useApplicationContext } from "../context/applicationContext";
 import { Itasks } from "@/app/interface/interface";
 export default function TaskList() {
@@ -36,43 +35,53 @@ export default function TaskList() {
   };
   return (
     <div>
-      <div
-        className="scroll-container"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          height: "100vh",
-          overflowY: "scroll",
-        }}
-      >
-        {CurrentUserNotes?.tasks.map((el, index) => {
-          const { title, description, taskId } = el;
-          return (
-            <div key={index}>
-              <div className="task_list_grid">
-                <div>
-                  <b>{title}</b>
-                </div>
-                <div
-                  style={{
-                    overflowY: description.length > 200 ? "scroll" : "hidden",
-                    height: "auto",
-                    fontSize: "20px",
-                  }}
-                >
-                  <div>{description}</div>
-                </div>
-                <div>
-                  <button onClick={() => handleOnEdit(taskId, el)}>Edit</button>
-                  <button onClick={() => handleOnDelete(taskId)}>Delete</button>
+      {CurrentUserNotes?.tasks.length ? (
+        <div
+          className="scroll-container"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            height: "100vh",
+            overflowY: "scroll",
+          }}
+        >
+          {CurrentUserNotes?.tasks.map((el, index) => {
+            const { title, description, taskId } = el;
+            return (
+              <div key={index}>
+                <div className="task_list_grid">
+                  <div>
+                    <b>{title}</b>
+                  </div>
+                  <div
+                    style={{
+                      overflowY: description.length > 200 ? "scroll" : "hidden",
+                      height: "auto",
+                      fontSize: "20px",
+                    }}
+                  >
+                    <div>{description}</div>
+                  </div>
+                  <div>
+                    <button onClick={() => handleOnEdit(taskId, el)}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleOnDelete(taskId)}>
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div style={{ textAlign: "center" }}>
+          <h1>No Added Notes</h1>
+        </div>
+      )}
     </div>
   );
 }
