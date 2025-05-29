@@ -28,7 +28,7 @@ export default function Login() {
 
     if (findUser) {
       alert("Login Success");
-      setCurrentUserId(findUser);
+      setCurrentUserId(findUser.userId);
       router.push("./home");
     } else {
       alert("UserName Or Password Wrong");

@@ -8,7 +8,7 @@ import React, {
   SetStateAction,
 } from "react";
 
-import { ILoginUser, IRegister } from "@/app/interface/interface";
+import { ILoginUser, IRegister, Itasks } from "@/app/interface/interface";
 import useLocalStorage from "../hooks/useLocalStorage";
 interface ApplicationContextType {
   loginUser: ILoginUser;
@@ -22,8 +22,11 @@ interface ApplicationContextType {
   setCredentials: Dispatch<SetStateAction<IRegister[]>>;
   registerUser: IRegister;
   setRegisterUser: Dispatch<SetStateAction<IRegister>>;
-  currentUserId: IRegister | null;
-  setCurrentUserId: Dispatch<SetStateAction<IRegister | null>>;
+  currentUserId: string;
+  setCurrentUserId: Dispatch<SetStateAction<string>>;
+  task: Itasks;
+  setTask: Dispatch<SetStateAction<Itasks>>;
+  taksList: Itasks;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -39,11 +42,11 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
     userEmail: "",
     password: "",
   };
-  //   const taksList: Itasks = {
-  //     taskId: "",
-  //     title: "",
-  //     description: "",
-  //   };
+  const taksList: Itasks = {
+    taskId: "",
+    title: "",
+    description: "",
+  };
   const register: IRegister = {
     userId: "",
     userName: "",
@@ -61,7 +64,8 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
     []
   );
   const [registerUser, setRegisterUser] = useState<IRegister>(register);
-  const [currentUserId, setCurrentUserId] = useState<IRegister | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string>("");
+  const [task, setTask] = useState<Itasks>(taksList);
   return (
     <ApplicationContext.Provider
       value={{
@@ -78,6 +82,9 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         setRegisterUser,
         currentUserId,
         setCurrentUserId,
+        task,
+        setTask,
+        taksList,
       }}
     >
       {children}

@@ -39,3 +39,33 @@
   grid-template-rows: auto auto auto auto auto;
   row-gap: 20px;
 }
+
+.add_task_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.add_task_grid {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  border: 1px solid gray;
+  width: 20rem;
+  height: 14rem;
+  row-gap: 10px;
+  border-radius: 2px;
+  padding: 20px;
+  background-color: #eaefef;
+}
+.task_input_title {
+  height: 2rem;
+  width: 20rem;
+  font-size: 22px;
+}
+textarea {
+  resize: none;
+  resize: none;
+  width: 20rem;
+  height: 8rem;
+  font-size: 20px;
+}
