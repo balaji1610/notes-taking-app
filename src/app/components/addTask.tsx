@@ -2,8 +2,14 @@
 import { useApplicationContext } from "../context/applicationContext";
 import { v4 as uuidv4 } from "uuid";
 export default function AddTask() {
-  const { task, setTask, currentUserId, setCredentials, credentials } =
-    useApplicationContext();
+  const {
+    task,
+    setTask,
+    currentUserId,
+    setCredentials,
+    credentials,
+    taksList,
+  } = useApplicationContext();
 
   const handleOnchange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -19,16 +25,16 @@ export default function AddTask() {
       if (user.userId === currentUserId) {
         return {
           ...user,
-          tasks: [...user.tasks, { ...task, taskId: uuidv4().slice(0, 4) }],
+          tasks: [{ ...task, taskId: uuidv4().slice(0, 4) }, ...user.tasks],
         };
       }
       return user;
     });
     setCredentials(updatedUsers);
+    setTask(taksList);
   };
   return (
     <div className="add_task_container">
-      {JSON.stringify(credentials)}
       <div className="add_task_grid">
         <div>
           <input

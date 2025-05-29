@@ -69,3 +69,23 @@ textarea {
   height: 8rem;
   font-size: 20px;
 }
+.task_list_grid {
+  display: grid;
+  grid-template-rows: auto auto 35px;
+  row-gap: 10px;
+  border-radius: 2px;
+  background-color: #ecfae5;
+  border: 1px solid #eaebd0;
+  width: 18rem;
+  height: 20rem;
+  overflow: none;
+  margin: 10px 20px;
+}
+.scroll-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
