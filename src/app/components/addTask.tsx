@@ -9,6 +9,9 @@ export default function AddTask() {
     setCredentials,
     credentials,
     taksList,
+    isEdit,
+    editId,
+    setIsEdit,
   } = useApplicationContext();
 
   const handleOnchange = (
@@ -33,6 +36,23 @@ export default function AddTask() {
     setCredentials(updatedUsers);
     setTask(taksList);
   };
+
+  const handleOnUpdateTask = () => {
+    const updatedNote = credentials.map((user) => {
+      if (user.userId === currentUserId) {
+        return {
+          ...user,
+          tasks: user.tasks.map((el) => {
+            return el.taskId === editId ? task : el;
+          }),
+        };
+      }
+      return user;
+    });
+    setCredentials(updatedNote);
+    setTask(taksList);
+    setIsEdit(false);
+  };
   return (
     <div className="add_task_container">
       <div className="add_task_grid">
@@ -54,9 +74,12 @@ export default function AddTask() {
             onChange={(e) => handleOnchange(e)}
           />
         </div>
-        <div>
+
+        {isEdit ? (
+          <button onClick={() => handleOnUpdateTask()}>Update</button>
+        ) : (
           <button onClick={() => handleOnAddTask()}>Add</button>
-        </div>
+        )}
       </div>
     </div>
   );

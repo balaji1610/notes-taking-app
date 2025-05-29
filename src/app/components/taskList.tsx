@@ -1,14 +1,19 @@
 "use client";
 
 import { useApplicationContext } from "../context/applicationContext";
-
+import { Itasks } from "@/app/interface/interface";
 export default function TaskList() {
-  const { credentials, currentUserId } = useApplicationContext();
+  const { credentials, currentUserId, setIsEdit, setEditId, setTask } =
+    useApplicationContext();
 
   const CurrentUserNotes = credentials.find((el) => {
     return el.userId === currentUserId;
   });
-
+  const handleOnEdit = (Id: string, el: Itasks) => {
+    setEditId(Id);
+    setIsEdit(true);
+    setTask(el);
+  };
   return (
     <div>
       <div
@@ -23,7 +28,7 @@ export default function TaskList() {
         }}
       >
         {CurrentUserNotes?.tasks.map((el, index) => {
-          const { title, description } = el;
+          const { title, description, taskId } = el;
           return (
             <div key={index}>
               <div className="task_list_grid">
@@ -40,7 +45,7 @@ export default function TaskList() {
                   <div>{description}</div>
                 </div>
                 <div>
-                  <button>Edit</button>
+                  <button onClick={() => handleOnEdit(taskId, el)}>Edit</button>
                   <button>Delete</button>
                 </div>
               </div>

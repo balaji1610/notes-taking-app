@@ -27,6 +27,10 @@ interface ApplicationContextType {
   task: Itasks;
   setTask: Dispatch<SetStateAction<Itasks>>;
   taksList: Itasks;
+  isEdit: boolean;
+  setIsEdit: Dispatch<SetStateAction<boolean>>;
+  editId: string;
+  setEditId: Dispatch<SetStateAction<string>>;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -66,6 +70,8 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const [registerUser, setRegisterUser] = useState<IRegister>(register);
   const [currentUserId, setCurrentUserId] = useState<string>("");
   const [task, setTask] = useState<Itasks>(taksList);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [editId, setEditId] = useState<string>("");
   return (
     <ApplicationContext.Provider
       value={{
@@ -85,6 +91,10 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         task,
         setTask,
         taksList,
+        isEdit,
+        setIsEdit,
+        editId,
+        setEditId,
       }}
     >
       {children}
