@@ -1,7 +1,10 @@
 "use client";
-import styles from "./page.module.css";
-import { useApplicationContext } from "@/app/context/applicationContext";
+import Login from "@/app/components/login";
+
 export default function Home() {
-  const { loginUser } = useApplicationContext();
-  return <div className={styles.page}>{loginUser}</div>;
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 }

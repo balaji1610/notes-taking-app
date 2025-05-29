@@ -7,10 +7,16 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
+import { ILoginUser } from "@/app/interface/interface";
 
 interface ApplicationContextType {
-  loginUser: string;
-  setLoginUser: Dispatch<SetStateAction<string>>;
+  loginUser: ILoginUser;
+  setLoginUser: Dispatch<SetStateAction<ILoginUser>>;
+  isShowPassword: boolean;
+  setIsShowPassword: Dispatch<SetStateAction<boolean>>;
+  singleLogin: ILoginUser;
+  users: ILoginUser[];
+  setUsers: Dispatch<SetStateAction<ILoginUser[]>>;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -22,9 +28,25 @@ interface ContextProps {
 }
 
 const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
-  const [loginUser, setLoginUser] = useState<string>("Login");
+  const singleLogin: ILoginUser = {
+    userName: "",
+    passWord: "",
+  };
+  const [loginUser, setLoginUser] = useState<ILoginUser>(singleLogin);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [users, setUsers] = useState<ILoginUser[]>([]);
   return (
-    <ApplicationContext.Provider value={{ loginUser, setLoginUser }}>
+    <ApplicationContext.Provider
+      value={{
+        loginUser,
+        setLoginUser,
+        isShowPassword,
+        setIsShowPassword,
+        singleLogin,
+        users,
+        setUsers,
+      }}
+    >
       {children}
     </ApplicationContext.Provider>
   );
