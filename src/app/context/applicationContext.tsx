@@ -7,7 +7,8 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import { ILoginUser } from "@/app/interface/interface";
+
+import { ILoginUser, IRegister } from "@/app/interface/interface";
 
 interface ApplicationContextType {
   loginUser: ILoginUser;
@@ -17,6 +18,10 @@ interface ApplicationContextType {
   singleLogin: ILoginUser;
   users: ILoginUser[];
   setUsers: Dispatch<SetStateAction<ILoginUser[]>>;
+  credentials: IRegister[];
+  setCredentials: Dispatch<SetStateAction<IRegister[]>>;
+  registerUser: IRegister;
+  setRegisterUser: Dispatch<SetStateAction<IRegister>>;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -29,12 +34,29 @@ interface ContextProps {
 
 const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const singleLogin: ILoginUser = {
-    userName: "",
+    userEmail: "",
     passWord: "",
   };
+  //   const taksList: Itasks = {
+  //     taskId: "",
+  //     title: "",
+  //     description: "",
+  //   };
+  const register: IRegister = {
+    userId: "",
+    userName: "",
+    userEmail: "",
+    password: "",
+    confirmPassword: "",
+    tasks: [],
+  };
+
   const [loginUser, setLoginUser] = useState<ILoginUser>(singleLogin);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [users, setUsers] = useState<ILoginUser[]>([]);
+  const [credentials, setCredentials] = useState<IRegister[]>([]);
+  const [registerUser, setRegisterUser] = useState<IRegister>(register);
+
   return (
     <ApplicationContext.Provider
       value={{
@@ -45,6 +67,10 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         singleLogin,
         users,
         setUsers,
+        credentials,
+        setCredentials,
+        registerUser,
+        setRegisterUser,
       }}
     >
       {children}

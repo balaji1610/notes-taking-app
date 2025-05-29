@@ -1,7 +1,10 @@
 import Input from "../reusableComponetns/input";
 import ShowPassword from "../reusableComponetns/showPassword";
 import { useApplicationContext } from "../context/applicationContext";
+import { useRouter } from "next/navigation";
+
 export default function Login() {
+  const router = useRouter();
   const { loginUser, setLoginUser, isShowPassword } = useApplicationContext();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,34 +15,38 @@ export default function Login() {
   };
   return (
     <div className="login-container">
-      <form>
-        <div className="login-grid">
-          <div>Login</div>
-          <div>
-            <Input
-              type="text"
-              name="userName"
-              value={loginUser.userName}
-              onChange={(e) => handleOnChange(e)}
-            />
-          </div>
-          <div>
-            <Input
-              type={isShowPassword ? "password" : "text"}
-              name="passWord"
-              value={loginUser.passWord}
-              onChange={(e) => handleOnChange(e)}
-            />
-          </div>
-          <div>
-            <ShowPassword />
-          </div>
-          <div>
-            <button>Login</button>
-          </div>
-          <div>Register</div>
+      <div className="login-grid">
+        <div>Login</div>
+        <div>
+          <Input
+            type="email"
+            name="userEmail"
+            placeholder="Enter Your Email"
+            value={loginUser.userEmail}
+            onChange={(e) => handleOnChange(e)}
+          />
         </div>
-      </form>
+        <div>
+          <Input
+            placeholder="Enter Your Password"
+            type={isShowPassword ? "password" : "text"}
+            name="passWord"
+            value={loginUser.passWord}
+            onChange={(e) => handleOnChange(e)}
+          />
+        </div>
+        <div>
+          <ShowPassword />
+        </div>
+        <div>
+          <button>Login</button>
+        </div>
+        <div>
+          <button onClick={() => router.push("./registerPage")}>
+            Register
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
