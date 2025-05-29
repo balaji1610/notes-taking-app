@@ -12,6 +12,7 @@ export default function Button(props: IButton) {
           borderRadius: "5px",
           fontWeight: "bold",
           fontSize: "13px",
+          cursor: "pointer",
         }}
         onClick={onClick}
       >

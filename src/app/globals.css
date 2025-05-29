@@ -25,10 +25,11 @@
 .login-icon {
   justify-self: center;
 }
+
 .input-text {
   width: 17rem;
   height: 2rem;
-  font-size: 20px;
+  font-size: 17px;
   border-radius: 4px;
 }
 .register-container {
@@ -36,15 +37,20 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 40rem;
+  height: 33rem;
 }
 .register-grid {
-  border: 1px solid gray;
+  border: 1px solid #000000;
   width: 20rem;
   height: 30rem;
   display: grid;
+  justify-content: center;
   grid-template-rows: auto auto auto auto auto;
   row-gap: 20px;
+  grid-row-gap: 20px;
+  row-gap: 10px;
+  padding: 10px;
+  border-radius: 11px;
 }
 
 .add_task_container {

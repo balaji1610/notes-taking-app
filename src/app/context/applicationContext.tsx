@@ -32,6 +32,7 @@ interface ApplicationContextType {
   setIsEdit: Dispatch<SetStateAction<boolean>>;
   editId: string;
   setEditId: Dispatch<SetStateAction<string>>;
+  register: IRegister;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -96,6 +97,7 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         setIsEdit,
         editId,
         setEditId,
+        register,
       }}
     >
       {children}

@@ -73,11 +73,11 @@ export default function Login() {
         </div>
         <div>
           <span>
-            You Have Don`&apos;t Account Yet ?
+            You Have Don`&apos;t Account Yet ?{" "}
             <Button
               text="Register"
               onClick={() => router.push("./registerPage")}
-              bgColor="#333446"
+              bgColor="#212121"
             />
           </span>
         </div>

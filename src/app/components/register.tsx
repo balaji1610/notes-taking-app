@@ -4,10 +4,19 @@ import ShowPassword from "../reusableComponetns/showPassword";
 import { useApplicationContext } from "../context/applicationContext";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
+import { IoMdLogIn } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
+import Button from "@/app/reusableComponetns/button";
+
 export default function Register() {
   const router = useRouter();
-  const { registerUser, isShowPassword, setRegisterUser, setCredentials } =
-    useApplicationContext();
+  const {
+    registerUser,
+    isShowPassword,
+    setRegisterUser,
+    setCredentials,
+    register,
+  } = useApplicationContext();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -17,18 +26,36 @@ export default function Register() {
   };
 
   const handleOnRegister = () => {
-    setCredentials((prev) => {
-      return [
-        ...prev,
-        { ...registerUser, userId: `User-${uuidv4().slice(0, 4)}` },
-      ];
-    });
+    const { userName, userEmail, password, confirmPassword } = registerUser;
+
+    if (!userName || !userEmail || !password || !confirmPassword) {
+      return toast.error(
+        "username & Email & password & confirmPassword is required"
+      );
+    }
+
+    if (password != confirmPassword) {
+      return toast.error(" password & confirmPassword not matched");
+    }
+
+    if (userName && userEmail && password && confirmPassword) {
+      setCredentials((prev) => {
+        return [
+          ...prev,
+          { ...registerUser, userId: `User-${uuidv4().slice(0, 4)}` },
+        ];
+      });
+      setRegisterUser(register);
+      return toast.success("Successfully Is Registered");
+    }
   };
 
   return (
     <div className="register-container">
       <div className="register-grid">
-        <div>Register</div>
+        <div className="login-icon">
+          <IoMdLogIn className="icon" />
+        </div>
         <div>
           <Input
             name="userName"
@@ -70,11 +97,21 @@ export default function Register() {
           <ShowPassword />
         </div>
         <div>
-          <button onClick={handleOnRegister}>Register</button>
+          <Button
+            text="Register"
+            onClick={handleOnRegister}
+            bgColor="#4300FF"
+          />
+
+          <ToastContainer />
         </div>
         <div>
           You Have Account ?
-          <button onClick={() => router.push("./")}>Login</button>
+          <Button
+            text="Login"
+            onClick={() => router.push("./")}
+            bgColor="#212121"
+          />
         </div>
       </div>
     </div>
