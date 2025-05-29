@@ -5,13 +5,29 @@ import { useRouter } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
-  const { loginUser, setLoginUser, isShowPassword } = useApplicationContext();
+  const { loginUser, setLoginUser, isShowPassword, credentials, singleLogin } =
+    useApplicationContext();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLoginUser((prev) => {
       return { ...prev, [name]: value };
     });
+  };
+  const handleOnLogin = () => {
+    const findUser = credentials.find(
+      (el) =>
+        el.userEmail === loginUser.userEmail &&
+        el.password === loginUser.password
+    );
+
+    if (findUser) {
+      alert("Login Success");
+      router.push("./home");
+      setLoginUser(singleLogin);
+    } else {
+      alert("UserName Or Password Wrong");
+    }
   };
   return (
     <div className="login-container">
@@ -30,8 +46,8 @@ export default function Login() {
           <Input
             placeholder="Enter Your Password"
             type={isShowPassword ? "password" : "text"}
-            name="passWord"
-            value={loginUser.passWord}
+            name="password"
+            value={loginUser.password}
             onChange={(e) => handleOnChange(e)}
           />
         </div>
@@ -39,7 +55,7 @@ export default function Login() {
           <ShowPassword />
         </div>
         <div>
-          <button>Login</button>
+          <button onClick={handleOnLogin}>Login</button>
         </div>
         <div>
           <button onClick={() => router.push("./registerPage")}>

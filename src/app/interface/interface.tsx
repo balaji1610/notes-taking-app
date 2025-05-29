@@ -10,7 +10,7 @@ export interface Iinput {
 
 export interface ILoginUser {
   userEmail: string;
-  passWord: string;
+  password: string;
 }
 export interface Itasks {
   taskId: string;

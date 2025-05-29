@@ -9,7 +9,7 @@ import React, {
 } from "react";
 
 import { ILoginUser, IRegister } from "@/app/interface/interface";
-
+import useLocalStorage from "../hooks/useLocalStorage";
 interface ApplicationContextType {
   loginUser: ILoginUser;
   setLoginUser: Dispatch<SetStateAction<ILoginUser>>;
@@ -35,7 +35,7 @@ interface ContextProps {
 const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const singleLogin: ILoginUser = {
     userEmail: "",
-    passWord: "",
+    password: "",
   };
   //   const taksList: Itasks = {
   //     taskId: "",
@@ -54,7 +54,10 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
   const [loginUser, setLoginUser] = useState<ILoginUser>(singleLogin);
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [users, setUsers] = useState<ILoginUser[]>([]);
-  const [credentials, setCredentials] = useState<IRegister[]>([]);
+  const [credentials, setCredentials] = useLocalStorage<IRegister[]>(
+    "credentials",
+    []
+  );
   const [registerUser, setRegisterUser] = useState<IRegister>(register);
 
   return (
