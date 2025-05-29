@@ -3,8 +3,14 @@
 import { useApplicationContext } from "../context/applicationContext";
 import { Itasks } from "@/app/interface/interface";
 export default function TaskList() {
-  const { credentials, currentUserId, setIsEdit, setEditId, setTask } =
-    useApplicationContext();
+  const {
+    credentials,
+    setCredentials,
+    currentUserId,
+    setIsEdit,
+    setEditId,
+    setTask,
+  } = useApplicationContext();
 
   const CurrentUserNotes = credentials.find((el) => {
     return el.userId === currentUserId;
@@ -13,6 +19,20 @@ export default function TaskList() {
     setEditId(Id);
     setIsEdit(true);
     setTask(el);
+  };
+  const handleOnDelete = (deleteId: string) => {
+    const deleteNote = credentials.map((user) => {
+      if (user.userId === currentUserId) {
+        return {
+          ...user,
+          tasks: user.tasks.filter((el) => {
+            return el.taskId != deleteId;
+          }),
+        };
+      }
+      return user;
+    });
+    setCredentials(deleteNote);
   };
   return (
     <div>
@@ -46,7 +66,7 @@ export default function TaskList() {
                 </div>
                 <div>
                   <button onClick={() => handleOnEdit(taskId, el)}>Edit</button>
-                  <button>Delete</button>
+                  <button onClick={() => handleOnDelete(taskId)}>Delete</button>
                 </div>
               </div>
             </div>
