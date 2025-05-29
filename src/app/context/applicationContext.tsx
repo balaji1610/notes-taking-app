@@ -22,6 +22,8 @@ interface ApplicationContextType {
   setCredentials: Dispatch<SetStateAction<IRegister[]>>;
   registerUser: IRegister;
   setRegisterUser: Dispatch<SetStateAction<IRegister>>;
+  currentUserId: IRegister | null;
+  setCurrentUserId: Dispatch<SetStateAction<IRegister | null>>;
 }
 
 const ApplicationContext = createContext<ApplicationContextType | undefined>(
@@ -59,7 +61,7 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
     []
   );
   const [registerUser, setRegisterUser] = useState<IRegister>(register);
-
+  const [currentUserId, setCurrentUserId] = useState<IRegister | null>(null);
   return (
     <ApplicationContext.Provider
       value={{
@@ -74,6 +76,8 @@ const ApplicationProvider: React.FC<ContextProps> = ({ children }) => {
         setCredentials,
         registerUser,
         setRegisterUser,
+        currentUserId,
+        setCurrentUserId,
       }}
     >
       {children}

@@ -5,8 +5,13 @@ import { useRouter } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
-  const { loginUser, setLoginUser, isShowPassword, credentials, singleLogin } =
-    useApplicationContext();
+  const {
+    loginUser,
+    setLoginUser,
+    isShowPassword,
+    credentials,
+    setCurrentUserId,
+  } = useApplicationContext();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,8 +28,8 @@ export default function Login() {
 
     if (findUser) {
       alert("Login Success");
+      setCurrentUserId(findUser);
       router.push("./home");
-      setLoginUser(singleLogin);
     } else {
       alert("UserName Or Password Wrong");
     }
