@@ -2,6 +2,9 @@ import Input from "../reusableComponetns/input";
 import ShowPassword from "../reusableComponetns/showPassword";
 import { useApplicationContext } from "../context/applicationContext";
 import { useRouter } from "next/navigation";
+import { MdAccountCircle } from "react-icons/md";
+import Button from "@/app/reusableComponetns/button";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Login() {
   const router = useRouter();
@@ -20,6 +23,9 @@ export default function Login() {
     });
   };
   const handleOnLogin = () => {
+    if (!loginUser.userEmail || !loginUser.password) {
+      return toast.error("Username and password are required.");
+    }
     const findUser = credentials.find(
       (el) =>
         el.userEmail === loginUser.userEmail &&
@@ -27,17 +33,19 @@ export default function Login() {
     );
 
     if (findUser) {
-      alert("Login Success");
+      toast.success("Login Success");
       setCurrentUserId(findUser.userId);
       router.push("./home");
     } else {
-      alert("UserName Or Password Wrong");
+      toast.error("Invalid username or password");
     }
   };
   return (
     <div className="login-container">
       <div className="login-grid">
-        <div>Login</div>
+        <div className="login-icon">
+          <MdAccountCircle className="icon" />
+        </div>
         <div>
           <Input
             type="email"
@@ -59,13 +67,19 @@ export default function Login() {
         <div>
           <ShowPassword />
         </div>
-        <div>
-          <button onClick={handleOnLogin}>Login</button>
+        <div className="login-icon">
+          <Button text="Login" onClick={handleOnLogin} bgColor="#4300FF" />
+          <ToastContainer />
         </div>
         <div>
-          <button onClick={() => router.push("./registerPage")}>
-            Register
-          </button>
+          <span>
+            You Have Don`&apos;t Account Yet ?
+            <Button
+              text="Register"
+              onClick={() => router.push("./registerPage")}
+              bgColor="#333446"
+            />
+          </span>
         </div>
       </div>
     </div>

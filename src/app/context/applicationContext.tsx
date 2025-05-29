@@ -10,6 +10,7 @@ import React, {
 
 import { ILoginUser, IRegister, Itasks } from "@/app/interface/interface";
 import useLocalStorage from "../hooks/useLocalStorage";
+
 interface ApplicationContextType {
   loginUser: ILoginUser;
   setLoginUser: Dispatch<SetStateAction<ILoginUser>>;

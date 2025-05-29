@@ -7,7 +7,11 @@ export interface Iinput {
   placeholder: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-
+export interface IButton {
+  bgColor: string;
+  text: string;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
 export interface ILoginUser {
   userEmail: string;
   password: string;
