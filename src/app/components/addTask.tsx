@@ -31,22 +31,17 @@ export default function AddTask() {
       toast.error("Title and Description is required");
     }
 
-    if (task.title.length >= 20 && task.description.length >= 20) {
-      const updatedUsers = credentials.map((user) => {
-        if (user.userId === currentUserId) {
-          return {
-            ...user,
-            tasks: [{ ...task, taskId: uuidv4().slice(0, 4) }, ...user.tasks],
-          };
-        }
-        return user;
-      });
-      setCredentials(updatedUsers);
-      setTask(taksList);
-      toast.success("Added Notes SuccessFully !");
-    } else {
-      toast.error("More Than 20 Letters Required");
-    }
+    const updatedUsers = credentials.map((user) => {
+      if (user.userId === currentUserId) {
+        return {
+          ...user,
+          tasks: [{ ...task, taskId: uuidv4().slice(0, 4) }, ...user.tasks],
+        };
+      }
+      return user;
+    });
+    setCredentials(updatedUsers);
+    setTask(taksList);
   };
 
   const handleOnUpdateTask = () => {
@@ -54,25 +49,20 @@ export default function AddTask() {
       toast.error("Title and Description is required");
     }
 
-    if (task.title.length >= 20 && task.description.length >= 20) {
-      const updatedNote = credentials.map((user) => {
-        if (user.userId === currentUserId) {
-          return {
-            ...user,
-            tasks: user.tasks.map((el) => {
-              return el.taskId === editId ? task : el;
-            }),
-          };
-        }
-        return user;
-      });
-      setCredentials(updatedNote);
-      setTask(taksList);
-      setIsEdit(false);
-      toast.success("Update Notes SuccessFully !");
-    } else {
-      toast.error("More Than 20 Letters Required");
-    }
+    const updatedNote = credentials.map((user) => {
+      if (user.userId === currentUserId) {
+        return {
+          ...user,
+          tasks: user.tasks.map((el) => {
+            return el.taskId === editId ? task : el;
+          }),
+        };
+      }
+      return user;
+    });
+    setCredentials(updatedNote);
+    setTask(taksList);
+    setIsEdit(false);
   };
 
   const handleOnClose = () => {

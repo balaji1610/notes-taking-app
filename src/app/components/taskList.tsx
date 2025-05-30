@@ -1,6 +1,9 @@
 "use client";
 import { useApplicationContext } from "../context/applicationContext";
 import { Itasks } from "@/app/interface/interface";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
 export default function TaskList() {
   const {
     credentials,
@@ -37,7 +40,6 @@ export default function TaskList() {
     <div>
       {CurrentUserNotes?.tasks.length ? (
         <div
-          className="scroll-container"
           style={{
             display: "flex",
             flexDirection: "row",
@@ -45,6 +47,7 @@ export default function TaskList() {
             justifyContent: "center",
             height: "100vh",
             overflowY: "scroll",
+            cursor: "pointer",
           }}
         >
           {CurrentUserNotes?.tasks.map((el, index) => {
@@ -52,25 +55,33 @@ export default function TaskList() {
             return (
               <div key={index}>
                 <div className="task_list_grid">
-                  <div>
+                  <div className="task_list_title">
                     <b>{title}</b>
                   </div>
                   <div
                     style={{
-                      overflowY: description.length > 200 ? "scroll" : "hidden",
+                      overflowY: "scroll",
                       height: "auto",
                       fontSize: "20px",
+                      textIndent: " 25px",
                     }}
                   >
                     <div>{description}</div>
                   </div>
-                  <div>
-                    <button onClick={() => handleOnEdit(taskId, el)}>
-                      Edit
-                    </button>
-                    <button onClick={() => handleOnDelete(taskId)}>
-                      Delete
-                    </button>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <div onClick={() => handleOnEdit(taskId, el)}>
+                      <FaEdit style={{ fontSize: "30px", color: "#000000" }} />
+                    </div>
+                    <div onClick={() => handleOnDelete(taskId)}>
+                      {" "}
+                      <MdDelete style={{ fontSize: "30px", color: "red" }} />
+                    </div>
                   </div>
                 </div>
               </div>

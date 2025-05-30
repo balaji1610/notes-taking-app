@@ -14,6 +14,7 @@ export default function Login() {
     isShowPassword,
     credentials,
     setCurrentUserId,
+    singleLogin,
   } = useApplicationContext();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +37,7 @@ export default function Login() {
       toast.success("Login Success");
       setCurrentUserId(findUser.userId);
       router.push("./home");
+      setLoginUser(singleLogin);
     } else {
       toast.error("Invalid username or password");
     }
