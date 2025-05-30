@@ -1,3 +1,17 @@
+This is a user-friendly note-taking application built with React. Users can easily register and log in, with their data securely stored using localStorage. After logging in, users can:
+
+Add, edit, and delete notes.
+
+Automatically generate unique note IDs using UUID.
+
+View and manage their notes in a simple interface.
+
+Logout to return to the login page securely.
+
+The app features reusable components for inputs, buttons, and a show/hide password toggle. It also uses custom hooks for managing localStorage efficiently.
+
+This app offers a clean, intuitive way to manage personal notes with full offline support.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
